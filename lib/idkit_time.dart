@@ -1,4 +1,6 @@
 // Time format
+import 'package:flutter/material.dart';
+
 enum TimeFormat {
   yyyyMMdd,
   yyyyMMddhhmmss, // hh:12
@@ -51,7 +53,7 @@ class IDKitTime {
   }
 
   // 补位
-  String _complementInt(int num, int bit) {
+  static String _complementInt(int num, int bit) {
     var handleNum = "$num";
     if (handleNum.length < bit) {
       return "0" * (bit - handleNum.length) + handleNum;
@@ -89,7 +91,7 @@ class IDKitTime {
     }
     resultFront.clear();
     resultLast.clear();
-    return result;
+    return result.trim();
   }
 
   // 简明的时间传
@@ -147,9 +149,31 @@ class IDKitTime {
       } else {
         result = IDKitTime.formatDate(dateTime);
       }
-      return result;
+      return result.trim();
     } else {
       throw Exception("Time parameter cannot be empty.");
     }
+  }
+
+  /// 自定义时间样式
+  static String diyFormatDate(
+      {@required String stamp, @required String format}) {
+    if (format.isNotEmpty && stamp.isNotEmpty) {
+      int value = int.parse(stamp) ?? 0;
+      var _time = value == 0
+          ? DateTime.now()
+          : DateTime.fromMillisecondsSinceEpoch(value);
+      var temp = format;
+      temp = temp
+          .replaceAll("yyyy", "${_time.year}")
+          .replaceAll("MM", _complementInt(_time.month, 2))
+          .replaceAll("dd", _complementInt(_time.day, 2))
+          .replaceAll("HH", _complementInt(_time.hour, 2))
+          .replaceAll("hh", _complementInt(_time.hour, 2))
+          .replaceAll("mm", _complementInt(_time.minute, 2))
+          .replaceAll("ss", _complementInt(_time.second, 2));
+      return temp.trim();
+    }
+    return "The lenght of [stamp] or [format] isn't zero";
   }
 }

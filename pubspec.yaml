@@ -1,6 +1,6 @@
 name: idkit_time
 description: This pub mainly deals with timestamp formatting.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/zhoushuangjian001/idkit_time
 
 environment:
