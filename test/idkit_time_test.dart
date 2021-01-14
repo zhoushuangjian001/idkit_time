@@ -38,4 +38,34 @@ void main() {
             stamp: "1610523651676", format: "yyyy年MM月dd日 hh:mm"),
         "2021年01月13日 15:40");
   });
+
+  test("time ", () {
+    expect(IDKitTime.diyFormatDate(time: 1610523651676, format: "yyyy年MM月"),
+        "2021年01月");
+    expect(
+        IDKitTime.diyFormatDate(time: 1610523651676, format: "yyyy年"), "2021年");
+    expect(IDKitTime.diyFormatDate(time: 1610523651676, format: "yyyy年MM月dd日"),
+        "2021年01月13日");
+    expect(
+        IDKitTime.diyFormatDate(time: 1610523651676, format: "yyyy年MM月dd日 hh时"),
+        "2021年01月13日 15时");
+    expect(
+        IDKitTime.diyFormatDate(
+            time: 1610523651676, format: "yyyy年MM月dd日 hh时mm分"),
+        "2021年01月13日 15时40分");
+    expect(
+        IDKitTime.diyFormatDate(
+            time: 1610523651676, format: "yyyy年MM月dd日 hh时mm分ss秒"),
+        "2021年01月13日 15时40分51秒");
+    expect(
+        IDKitTime.diyFormatDate(
+            time: 1610523651676, format: "yyyy年MM月dd日 hh:mm:ss"),
+        "2021年01月13日 15:40:51");
+    expect(
+        IDKitTime.diyFormatDate(
+            time: 1610523651676, format: "yyyy年MM月dd日 hh:mm"),
+        "2021年01月13日 15:40");
+
+    expect(IDKitTime.diyFormatDate(time: 1610523651676), "2021-01-13 15:40:51");
+  });
 }

@@ -157,23 +157,27 @@ class IDKitTime {
 
   /// 自定义时间样式
   static String diyFormatDate(
-      {@required String stamp, @required String format}) {
-    if (format.isNotEmpty && stamp.isNotEmpty) {
-      int value = int.parse(stamp) ?? 0;
-      var _time = value == 0
-          ? DateTime.now()
-          : DateTime.fromMillisecondsSinceEpoch(value);
-      var temp = format;
-      temp = temp
-          .replaceAll("yyyy", "${_time.year}")
-          .replaceAll("MM", _complementInt(_time.month, 2))
-          .replaceAll("dd", _complementInt(_time.day, 2))
-          .replaceAll("HH", _complementInt(_time.hour, 2))
-          .replaceAll("hh", _complementInt(_time.hour, 2))
-          .replaceAll("mm", _complementInt(_time.minute, 2))
-          .replaceAll("ss", _complementInt(_time.second, 2));
-      return temp.trim();
+      {String stamp, int time, String format = "yyyy-MM-dd hh:mm:ss"}) {
+    var tempValue = stamp;
+    if (tempValue == null || tempValue.isEmpty) {
+      if (time != null) {
+        tempValue = time.toString();
+      }
     }
-    return "The lenght of [stamp] or [format] isn't zero";
+    var _time;
+    try {
+      _time = DateTime.fromMillisecondsSinceEpoch(int.parse(tempValue) ?? 0);
+    } catch (e) {
+      _time = DateTime.now();
+    }
+    var temp = format
+        .replaceAll("yyyy", "${_time.year}")
+        .replaceAll("MM", _complementInt(_time.month, 2))
+        .replaceAll("dd", _complementInt(_time.day, 2))
+        .replaceAll("HH", _complementInt(_time.hour, 2))
+        .replaceAll("hh", _complementInt(_time.hour, 2))
+        .replaceAll("mm", _complementInt(_time.minute, 2))
+        .replaceAll("ss", _complementInt(_time.second, 2));
+    return temp.trim();
   }
 }
